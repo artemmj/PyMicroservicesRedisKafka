@@ -2,6 +2,7 @@ import json
 
 import redis
 import scrapy
+from scrapy import http as scraphttp
 
 from currency.currency import settings
 
@@ -11,7 +12,7 @@ class CurrencyV1Spider(scrapy.Spider):
     allowed_domains = ["www.cbr.ru"]
     start_urls = ["https://www.cbr.ru/scripts/xml_daily.asp"]
 
-    def parse(self, response):
+    def parse(self, response: scraphttp.Response):
         currencies = response.xpath("//ValCurs//Valute")
         with redis.from_url(url=settings.REDIS_URL) as redis_client:
             for currency in currencies:

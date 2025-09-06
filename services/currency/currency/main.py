@@ -16,7 +16,9 @@ async def start_consumer() -> AIOKafkaConsumer:
 
 
 async def start_producer() -> AIOKafkaProducer:
-    producer = AIOKafkaProducer(bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS)
+    producer = AIOKafkaProducer(
+        bootstrap_servers=settings.KAFKA_BOOTSTRAP_SERVERS,
+    )
     await producer.start()
     return producer
 

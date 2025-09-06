@@ -11,6 +11,10 @@ services:
       KAFKA_BOOTSTRAP_SERVERS: $KAFKA_BOOTSTRAP_SERVERS
       WEB_TOPIC: $WEB_TOPIC
     command: uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+    depends_on:
+      - kafka
+      - zookeeper
+      - redis
 
   currency:
     restart: on-failure
@@ -25,6 +29,10 @@ services:
       REDIS_HOST: $REDIS_HOST
       REDIS_PORT: $REDIS_PORT
     command: python main.py
+    depends_on:
+      - kafka
+      - zookeeper
+      - redis
 
   bot:
     restart: on-failure
@@ -37,6 +45,10 @@ services:
       CURRENCY_TOPIC: $CURRENCY_TOPIC
       BOT_TOKEN: $BOT_TOKEN
     command: python main.py
+    depends_on:
+      - kafka
+      - zookeeper
+      - redis
 
   zookeeper:
     image: 'bitnami/zookeeper:3.7.0'

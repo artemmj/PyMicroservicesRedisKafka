@@ -1,9 +1,9 @@
+import json
 from multiprocessing import Process, Queue
 from scrapy.crawler import CrawlerProcess
 from currency.currency import settings
 from currency.currency.spiders.currency_v1 import CurrencyV1Spider
 from redis import asyncio as aioredis
-import json
 
 
 class CurrencyController(object):
